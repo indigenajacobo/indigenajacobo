@@ -5,20 +5,18 @@ import React from 'react'
 
 const Dominios = () => {
 
-    const handleWhatsAppClick = () => {
+     const handleWhatsAppClick = () => {
+        if (typeof window === "undefined") return;
+
         const isMobile =
             navigator.userAgentData?.mobile ||
             window.innerWidth < 768;
 
-        if (
-            isMobile &&
-            typeof window !== "undefined" &&
-            typeof window.fbq === "function"
-        ) {
-            // Contacto por WhatsApp
+        if (isMobile && typeof window.fbq === "function") {
+            // Evento principal para campañas de WhatsApp
             window.fbq("track", "Contact");
 
-            // WhatsApp también cuenta como Lead
+            // Opcional: si quieres que WhatsApp cuente también como Lead
             window.fbq("track", "Lead");
         }
     };
@@ -52,5 +50,6 @@ const Dominios = () => {
         </div>
     )
 }
+
 
 export default Dominios
