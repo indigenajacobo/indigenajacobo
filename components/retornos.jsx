@@ -6,22 +6,20 @@ import React from 'react'
 const Retornos = () => {
 
     const handleWhatsAppClick = () => {
+        if (typeof window === "undefined") return;
+
         const isMobile =
-          navigator.userAgentData?.mobile ||
-          window.innerWidth < 768;
-      
-        if (
-          isMobile &&
-          typeof window !== "undefined" &&
-          typeof window.fbq === "function"
-        ) {
-          // Contacto por WhatsApp
-          window.fbq("track", "Contact");
-      
-          // WhatsApp también cuenta como Lead
-          window.fbq("track", "Lead");
+            navigator.userAgentData?.mobile ||
+            window.innerWidth < 768;
+
+        if (isMobile && typeof window.fbq === "function") {
+            // Evento principal para campañas de WhatsApp
+            window.fbq("track", "Contact");
+
+            // Opcional: si quieres que WhatsApp cuente también como Lead
+            window.fbq("track", "Lead");
         }
-      };
+    };
       
     return (
         <div className="relative flex flex-col justify-center items-center p-6">
@@ -50,5 +48,6 @@ const Retornos = () => {
         </div>
     )
 }
+
 
 export default Retornos
